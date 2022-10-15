@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt');
 
 class User extends Model {
     // set up method to run on instance data (per user) to check pw
+    checkPassword(loginPw) {
+        return bcrypt.compareSync(loginPw, this.password);
+    }
 }
 
 //defining table and columns
@@ -15,7 +18,7 @@ User.init(
             autoIncrement: true
         },
         username: {
-            type: DataTypes.VARCHAR(25),
+            type: DataTypes.STRING(25), //limit username to 25 characters
             allowNull: false
         },
         email: {
@@ -41,7 +44,7 @@ User.init(
                 newUserData.password = await bcrypt.hash(newUserData.password, 10);
                 return newUserData;
             },
-            // hashes password fro security in user password update 
+            // hashes password for security in user password update 
             async beforeUpdate(updatedUserData) {
                 updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
                 return updatedUserData;
