@@ -2,7 +2,7 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class Post extends Model {
-    static like(body, models) {
+    static like(body, models) { //like is a method of post, not an instance method
         return models.Like.create({
             user_id: body.user_id,
             post_id: body.post_id
