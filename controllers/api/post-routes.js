@@ -8,8 +8,7 @@ router.get('/', (req, res) => {
         attributes: [ //include like count in sequelize literal 
             'id', 
             'title', 
-            'text', 
-            'user_id', 
+            'description', 
             'article_url',
             'created_at',
             [sequelize.literal('(SELECT COUNT(*) FROM like WHERE post.id = like.post_id)'), 'like_count']
@@ -46,8 +45,7 @@ router.get('/:id', (req, res) => {
         attributes: [
             'id', 
             'title', 
-            'text', 
-            'user_id', 
+            'description', 
             'article_url',
             'created_at',
             [sequelize.literal('(SELECT COUNT(*) FROM like WHERE post.id = like.post_id)'), 'like_count']
@@ -84,7 +82,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     Post.create({
         title: req.body.title,
-        text: req.body.text,
+        description: req.body.description,
         article_url: req.body.article_url,
         user_id: req.session.user_id
     })
@@ -94,3 +92,5 @@ router.post('/', (req, res) => {
         res.status(500).json(err);
     })
 })
+
+module.exports = router;
