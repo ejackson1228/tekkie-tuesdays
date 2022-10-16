@@ -1,17 +1,17 @@
 const router = require('express').Router();
 const sequelize = require('../../config/connection');
-const { Post, User, Like, Comment } = require('../../models');
+const { Post, User, Vote, Comment } = require('../../models');
 
 // get all posts
 router.get('/', (req, res) => {
     Post.findAll({
-        attributes: [ //include like count in sequelize literal 
+        attributes: [ //include vote count in sequelize literal 
             'id', 
             'title', 
             'description', 
             'article_url',
             'created_at',
-            [sequelize.literal('(SELECT COUNT(*) FROM like WHERE post.id = like.post_id)'), 'like_count']
+            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
         ],
         order: [['created_at', 'DESC']],
         include: [
@@ -48,7 +48,7 @@ router.get('/:id', (req, res) => {
             'description', 
             'article_url',
             'created_at',
-            [sequelize.literal('(SELECT COUNT(*) FROM like WHERE post.id = like.post_id)'), 'like_count']
+            [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
         ],
         include: [
             {
@@ -87,6 +87,63 @@ router.post('/', (req, res) => {
         user_id: req.session.user_id
     })
     .then(dbPostData => res.json(dbPostData))
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    })
+});
+
+//edit a post
+router.put('/:id', (req, res) => {
+    Post.update(
+    {
+        title: req.body.title,
+        description: req.body.description
+    },
+    {
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(dbPostData => {
+        if (!dbPostData) {
+            res.status(404).json({ message: 'No Post found with that ID.'});
+            return;
+        }
+        res.json(dbPostData);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    })
+})
+
+//vote on a post
+router.put('/upvote', (req, res) => {
+    if (req.session) {
+        Post.upvote({ ...req.body, user_id: req.session.user_id }, { Vote, Comment, User })
+        .then(updatedVoteData => res.json(updatedVoteData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+    };
+});
+
+//delete post by Id
+router.delete('/:id', (req, res) => {
+    Post.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+    .then(dbPostData => {
+        if (!dbPostData) {
+            res.status(404).json({ message: 'No Post found with that ID.'});
+            return;
+        }
+        res.json(dbPostData);
+    })
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
