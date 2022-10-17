@@ -33,7 +33,7 @@ Vote.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'Vote'
+        modelName: 'vote'
     }
 );
 
