@@ -32,7 +32,8 @@ Comment.init(
             references: {
                 model: 'post',
                 key: 'id'
-            }
+            },
+            onDelete: 'cascade'
         }
     },
     {
