@@ -1,33 +1,32 @@
 <article>
-    <a href="/dashboard">Back To Dashboard</a>
-    <h3>
+    <h3 class="post-header">
         Edit Post
     </h3>
-    <form class="edit-post">
-        <div>
+    <form>
+        <div class="edit-post card">
             <label for="post-title">Title:</label>
             <input name="post-title" type="text" value="{{post.title}}" />
             <label for="post-description">Description:</label>
             <input name="post-description" type="text" value="{{post.description}}" />
             <span>({{ post.article_url }})</span>
         </div>   
-        <div>
-            {{post.vote_count}} point(s) by you on {{created_at}}
+        <div class="post-details card">
+            {{post.vote_count}} point(s) by you
 
             <a href="/post/{{post.id}}">{{post.comments.length}} comment(s)</a>
         </div> 
-        <button type="submit">Save Post</button>
-        <button type="button" class="delete-post-btn">Delete Post</button>
+        <button type="submit" class="save-delete-post-btns btn btn-warning">Save Post</button>
+        <button type="button" class="save-delete-post-btns btn btn-warning">Delete Post</button>
     </form>
 </article>
 
 <form class="comment-form">
+    {{> comments post.comments}}
     <div>
         <textarea name="comment-body"></textarea>
     </div>
-    {{> comments post.comments}}
     <div>
-        <button type="submit">Add Comment</button>
+        <button type="submit" class="btn btn-warning">Add Comment</button>
     </div>
 </form>
 

@@ -1,0 +1,134 @@
+body {
+    background-color: steelblue;
+}
+
+.main-header{
+    background-color: steelblue;
+    color: white;
+    display: flex;
+}
+
+.main-header-h1 {
+    color: gold;
+    display: flex;
+    float: left;
+    margin-right: 50px;
+    margin-left: 25px;
+}
+.navigate {
+    float: right;
+    display: flex;
+}
+
+.logout-btn, .login-btn {
+    color: steelblue;
+    margin-left: 15px;
+}
+
+.header-text {
+    color: gold;
+    text-decoration: none;
+}
+
+.links {
+    color: steelblue;
+    text-decoration: none;
+}
+
+.post {
+    background-color: gold;
+    margin: 5px;
+    justify-content: left;
+    display: inline-block;
+}
+
+.post-list {
+    list-style-type: none;
+}
+
+.new-post {
+    display: inline-flex;
+    background-color: gold;
+    margin-left: 40px;
+}
+
+.post-header {
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline-flex;
+    color: gold;
+    border-bottom: solid 3px;
+    max-width: 210px;
+}
+
+.new-post-section {
+    flex-wrap: wrap;
+    display: inline-block;
+}
+
+.comment-form {
+    display: block;
+    margin-left: 10px;
+    
+}
+
+.comment-input {
+    color: navy;
+}
+
+.submit-btn, .upvote-btn {
+    margin: 5px;
+}
+
+.comments {
+    display: flex;
+    flex-direction: column;
+    max-width: max-content;
+}
+
+.comment {
+    margin: 10px;
+    background-color: gold;
+    flex-wrap: wrap;
+}
+
+.edit-post-link {
+    color: steelblue;
+    align-content: center;
+}
+
+.edit-post {
+    max-width: max-content;
+    background-color: gold;
+    margin-left: 10px;
+}
+
+.dashboard-link {
+    color: gold;
+    width:auto;
+}
+
+.post-details {
+    background-color: gold;
+    max-width: max-content;
+    margin-left: 10px;
+}
+
+.save-delete-post-btns {
+    margin-left: 10px;
+}
+
+footer{
+    font-size: 30px;
+    color: gold;
+    display: flex;
+    margin: auto;
+    width: 50%;
+}
+
+.login-form, .signup-form {
+    background-color: gold;
+    max-width: max-content;
+    display: flex;
+    margin: 10px;
+}
